@@ -48,5 +48,16 @@ exports.registerController = (req,res) => {
                     <p>This email contains sensitive info</p>
                     ${process.env.CLIENT_URL}`
         }
+
+        sgmail.send(emailData).then(sent => {
+            return res.json({
+                message: `email has been sent to ${email}`
+            })
+        }).catch(err=>{
+            return res.status(400).json({
+                error: errorHandler(err)
+            })
+        });
+
     }
 }
