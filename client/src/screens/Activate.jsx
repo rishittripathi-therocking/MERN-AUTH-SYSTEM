@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import authSvg from '../assets/auth.svg';
+import authSvg from '../assets/welcome.svg';
 import {ToastContainer, toast} from 'react-toastify';
 import {authenticate, isAuth} from '../helpers/auth';
 import jwt from 'jsonwebtoken';
@@ -25,6 +25,8 @@ const Activate = ({match}) => {
 
         }
     },[]);
+
+    const {name,show, token} = formData;
 
     const handleSubmit = e => {
         e.preventDefault();
