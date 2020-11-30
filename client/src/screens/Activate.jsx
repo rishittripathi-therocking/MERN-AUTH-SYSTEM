@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import authSvg from '../assets/welcome.svg';
 import {ToastContainer, toast} from 'react-toastify';
 import {authenticate, isAuth} from '../helpers/auth';
