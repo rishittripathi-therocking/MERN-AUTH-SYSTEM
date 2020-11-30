@@ -4,6 +4,7 @@ import Register from './screens/Register';
 import Main from './Main';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Activate from './screens/Activate';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route path='/' exact render={props => <Main {...props} />} />
         <Route path='/register' exact render={props => <Register {...props} />} />
+        <Route path='/register' exact render={props => <Activate {...props} />} />
       </Switch>
     </BrowserRouter>
   );
