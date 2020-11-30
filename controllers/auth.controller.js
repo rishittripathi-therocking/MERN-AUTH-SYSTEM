@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 const {validationResult} = require('express-validator');
 const jwt = require('jsonwebtoken');
 const {errorHandler} = require('../helpers/dbErrorHandling');
-const {sgmail} = require('@sendgrid/mail');
+const sgmail = require('@sendgrid/mail');
 sgmail.setApiKey(process.env.MAIL_KEY);
 
 
