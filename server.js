@@ -4,10 +4,15 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 
+const app = express();
+
 require('dotenv').config({
     path:'./config/config.env'
 })
-const app = express()
+
+app.use(bodyParser.json());
+
+
 
 if(process.env.NODE_ENV === 'development') {
     app.use(cors({
