@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const connectDB = require('./config/db');
 
 const app = express();
 
@@ -11,6 +11,10 @@ require('dotenv').config({
 })
 
 app.use(bodyParser.json());
+
+connectDB();
+
+
 
 
 
