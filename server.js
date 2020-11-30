@@ -24,6 +24,10 @@ app.use((req,res,next) => {
     })
 })
 
+const authRouter = require('./routes/auth.route');
+
+
+app.use('/api/', authRouter);
 
 
 const PORT = process.env.PORT
