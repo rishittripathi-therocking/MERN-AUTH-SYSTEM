@@ -1,10 +1,16 @@
 import React from 'react';
 import {BrowserRouter,Route, Redirect, Switch} from 'react-router-dom';
-
+import Register from './screens/Register';
+import Main from './Main';
 
 function App() {
   return (
-    <div>App</div>
+    <BrowserRouter>
+      <Switch>
+        <Route path='/' exact render={props => <Main {...props} />} />
+        <Route path='/register' exact render={props => <Register {...props} />} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
