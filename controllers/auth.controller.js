@@ -61,3 +61,11 @@ exports.registerController = (req,res) => {
 
     }
 }
+
+exports.activationController = (req,res) => {
+    const {token} = req.body;
+
+    if(token) {
+        jwt.verify()
+    }
+}

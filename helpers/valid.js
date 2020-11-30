@@ -24,6 +24,9 @@ exports.validLogin = [
 
 ]
 
+exports.forgoPasswordValidator = [
+    check('email').not().isEmpty().isEmail().withMessage('Must be a valid email address')
+]
 
 exports.resetPasswordValidator = [
     check('newPassword').isLength({
