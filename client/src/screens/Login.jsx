@@ -7,7 +7,7 @@ import axios from 'axios';
 import {Link, Redirect} from 'react-router-dom';
 
 
-const Login = () => {
+const Login = ({history}) => {
     const [formData,setFormData] = useState({
         email: '',
         password1: '',
@@ -26,10 +26,16 @@ const Login = () => {
                 axios.post(`${process.env.REACT_APP_API_URL}/login`, {
                     email, password: password1
                 }).then(res => {
+                    authenticate(res, () => {
                     setFormData({...formData, email:'', password1:''})
                     console.log(res.data);
-                    toast.success('Sign in Successful');
-                }).catch(err => {
+                    
+                });
+                isAuth() && isAuth().role==='admin'
+                ?history.pushState('/admin')
+                :history.pushState('/private');
+                toast.success(`Hey ${res.data.user.name}, welcome back`);
+            }).catch(err => {
                     toast.error(err.response.data.error);
                 })
         } else {
@@ -60,6 +66,12 @@ const Login = () => {
                                        className='mt-3 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
                                        />
                                 <button type='submit' className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'>Login</button>
+                                <Link
+                                    to='/users/password/forget'
+                                    className='no-underline hover:underline text-indigo-500 text-md text-right absolute right-0  mt-2'
+                                    >
+                                    Forget password?
+                                    </Link>
 
                             </div>
                             <div className='my-12 border-b text-center'>
