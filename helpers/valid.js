@@ -24,7 +24,7 @@ exports.validLogin = [
 
 ]
 
-exports.forgoPasswordValidator = [
+exports.forgetPasswordValidator = [
     check('email').not().isEmpty().isEmail().withMessage('Must be a valid email address')
 ]
 
