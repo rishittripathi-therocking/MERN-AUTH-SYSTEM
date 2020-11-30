@@ -7,7 +7,7 @@ const {validationResult} = require('express-validator');
 const jwt = require('jsonwebtoken');
 const {errorHandler} = require('../helpers/dbErrorHandling');
 const {sgmail} = require('@sendgrid/mail');
-//sgmail.setApiKey(process.env.MAIL_KEY);
+sgmail.setApiKey(process.env.MAIL_KEY);
 
 
 exports.registerController = (req,res) => {
@@ -49,7 +49,7 @@ exports.registerController = (req,res) => {
                     ${process.env.CLIENT_URL}`
         }
 
-        /*sgmail.send(emailData).then(sent => {
+        sgmail.send(emailData).then(sent => {
             return res.json({
                 message: `email has been sent to ${email}`
             })
@@ -57,7 +57,7 @@ exports.registerController = (req,res) => {
             return res.status(400).json({
                 error: errorHandler(err)
             })
-        });*/
+        });
 
     }
 }
