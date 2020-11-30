@@ -13,7 +13,18 @@ if(process.env.NODE_ENV === 'development') {
     app.use(cors({
         origin: process.env.client_URL
     }))
+
+    app.use(morgan('dev'));
 }
+
+app.use((req,res,next) => {
+    res.status(404).json({
+        success: false,
+        message: "Page Not Found"
+    })
+})
+
+
 
 const PORT = process.env.PORT
 
