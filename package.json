@@ -27,6 +27,7 @@
     "mongoose": "^5.10.18",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.1",
+    "nodemailer": "^6.4.16",
     "nodemon": "^2.0.6"
   }
 }
