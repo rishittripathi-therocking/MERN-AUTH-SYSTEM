@@ -11,6 +11,8 @@ import Private from './screens/Private.jsx';
 import Admin from './screens/Admin.jsx';
 import ResetPassword from './screens/ResetPassword';
 
+import PrivateRoute from './Routes/PrivateRoute';
+import AdminRoute from './Routes/AdminRoute';
 
 function App() {
   return (

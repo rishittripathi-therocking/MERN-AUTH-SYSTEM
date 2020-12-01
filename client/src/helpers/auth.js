@@ -44,7 +44,7 @@ export const authenticate = (response, next) => {
 }
 
 
-export const singout = next => {
+export const signout = next => {
     removeCookie('token')
     removeLocalStorage('user')
 }

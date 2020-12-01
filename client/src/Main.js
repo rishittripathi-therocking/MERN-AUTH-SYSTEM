@@ -10,8 +10,8 @@ function Main({history}) {
         <div className='lg:w-1/2 xl:w-8/12 p-6 sm:p-12'>
           <div className='mt-12 flex flex-col items-center'>
             <h1 className='text-2xl xl:text-2xl font-extrabold  text-center '>
-              Ultimate Auth with Email & Facebook & Google with diferent roles,
-              email verification & Forget passwored{' '}
+              Authentication with Email & Facebook & Google ,
+              email verification & Forget passwored / Reset Password{' '}
             </h1>
             <div className='w-full flex-1 mt-8 text-indigo-500'>
               <div className='my-12 border-b text-center'>
