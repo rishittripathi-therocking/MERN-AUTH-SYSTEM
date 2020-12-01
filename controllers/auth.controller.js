@@ -46,7 +46,7 @@ exports.registerController = (req, res) => {
   
       const emailData = {
         from: process.env.EMAIL_FROM,
-        to: process.env.EMAIL_TO,
+        to: email,
         subject: 'Account activation link',
         html: `
                   <h1>Please use the following to activate your account</h1>
@@ -200,7 +200,7 @@ exports.forgotPasswordController = (req, res) => {
   
           const emailData = {
             from: process.env.EMAIL_FROM,
-            to: process.env.EMAIL_TO,
+            to: email,
             subject: `Password Reset link`,
             html: `
                       <h1>Please use the following link to reset your password</h1>
