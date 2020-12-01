@@ -79,7 +79,10 @@ const Login = ({history}) => {
                                        value={password1}
                                        className='mt-3 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
                                        />
-                                <button type='submit' className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'>Login</button>
+                                <button type='submit' className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'>
+                                    <i className='fas fa-sign-in-alt  w-6  -ml-2' />
+                                    <span className='ml-3'>Sign In</span>
+                                </button>
                                 <Link
                                     to='/users/password/forget'
                                     className='no-underline hover:underline text-indigo-500 text-md text-right absolute right-0  mt-2'
@@ -100,7 +103,8 @@ const Login = ({history}) => {
                                     href='/register'
                                     target='_self'
                                     >
-                                       Sign Up
+                                       <i className='fas fa-user-plus fa 1x w-6  -ml-2 text-indigo-500' />
+                                        <span className='ml-4'>Sign Up</span>
                                     </a>
                             </div>
                         </form>

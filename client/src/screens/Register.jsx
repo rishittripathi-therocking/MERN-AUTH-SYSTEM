@@ -76,7 +76,10 @@ const Register = () => {
                                        value={password2}
                                        className='mt-3 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
                                        />
-                                <button type='submit' className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'>Register</button>
+                                <button type='submit' className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'>
+                                    <i className='fas fa-user-plus fa 1x w-6  -ml-2' />
+                                    <span className='ml-3'>Register</span>
+                                </button>
 
                             </div>
                             <div className='my-12 border-b text-center'>
@@ -91,7 +94,8 @@ const Register = () => {
                                     href='/login'
                                     target='_self'
                                     >
-                                       Sign In
+                                        <i className='fas fa-sign-in-alt fa 1x w-6  -ml-2 text-indigo-500' />
+                                        <span className='ml-4'>Sign In</span>
                                     </a>
                             </div>
                         </form>
