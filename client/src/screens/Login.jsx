@@ -5,7 +5,7 @@ import {authenticate, isAuth} from '../helpers/auth';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import {Link, Redirect} from 'react-router-dom';
-
+import { GoogleLogin } from 'react-google-login';
 
 const Login = ({history}) => {
     const [formData,setFormData] = useState({
@@ -17,6 +17,31 @@ const Login = ({history}) => {
     const handleChange = text => e =>  {
         setFormData({...formData, [text]: e.target.value})
     }
+    const sendGoogleToken = tokenId => {
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/googlelogin`, {
+          idToken: tokenId
+        })
+        .then(res => {
+          console.log(res.data);
+          informParent(res);
+        })
+        .catch(error => {
+          console.log('GOOGLE SIGNIN ERROR', error.response);
+        });
+    };
+    const informParent = response => {
+      authenticate(response, () => {
+        isAuth() && isAuth().role === 'admin'
+          ? history.push('/admin')
+          : history.push('/private');
+      });
+    };
+
+    const responseGoogle = response => {
+      console.log(response);
+      sendGoogleToken(response.tokenId);
+    };
 
     const handleSubmit = e => {
         console.log(process.env.REACT_APP_API_URL);
