@@ -10,57 +10,68 @@ const sgmail = require('@sendgrid/mail');
 sgmail.setApiKey(process.env.MAIL_KEY);
 
 
-exports.registerController = (req,res) => {
-    const {name,email,password} = req.body;
+
+
+exports.registerController = (req, res) => {
+    const { name, email, password } = req.body;
     const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-        const firstError = errors.array().map(error => error.msg)[0];
-        return res.status(422).json({
-            error: firstError
-        })
+    console.log(req);
+    if (!errors.isEmpty()) {
+      const firstError = errors.array().map(error => error.msg)[0];
+      return res.status(422).json({
+        errors: firstError
+      });
     } else {
-        User.findOne({
-            email
-        }).exec((err,user)=>{
-            if(user) {
-                return res.status(400).json({
-                    error: "Email is taken"
-                })
-            }
-        })
-        const token = jwt.sign({
-            name,
-            email,
-            password
+      User.findOne({
+        email
+      }).exec((err, user) => {
+        if (user) {
+          return res.status(400).json({
+            errors: 'Email is taken'
+          });
+        }
+      });
+  
+      const token = jwt.sign(
+        {
+          name,
+          email,
+          password
         },
         process.env.JWT_ACCOUNT_ACTIVATION,
         {
-            expiresIn: '15m'
-        })
-
-        const emailData = {
-            from: process.env.EMAIL_FROM,
-            to: to,
-            subject: "Account Activation Link",
-            html: `<h1>Please Click Link to Activate Your Account</h1>
-                    <p>${process.env.CLIENT_URL}/users/activate/${token}</p>
-                    <hr>
-                    <p>This email contains sensitive info</p>
-                    ${process.env.CLIENT_URL}`
+          expiresIn: '5m'
         }
-
-        sgmail.send(emailData).then(sent => {
-            return res.json({
-                message: `email has been sent to ${email}`
-            })
-        }).catch(err=>{
-            return res.status(400).json({
-                error: errorHandler(err)
-            })
+      );
+  
+      const emailData = {
+        from: process.env.EMAIL_FROM,
+        to: email,
+        subject: 'Account activation link',
+        html: `
+                  <h1>Please use the following to activate your account</h1>
+                  <p>${process.env.CLIENT_URL}/users/activate/${token}</p>
+                  <hr />
+                  <p>This email may containe sensetive information</p>
+                  <p>${process.env.CLIENT_URL}</p>
+              `
+      };
+  
+      sgmail
+        .send(emailData)
+        .then(sent => {
+          return res.json({
+            message: `Email has been sent to ${email}`
+          });
+        })
+        .catch(err => {
+          return res.status(400).json({
+            success: false,
+            errors: errorHandler(err)
+          });
         });
-
     }
-}
+  };
 
 exports.activationController = (req,res) => {
     const {token} = req.body;

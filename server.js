@@ -18,25 +18,24 @@ connectDB();
 
 
 
-if(process.env.NODE_ENV === 'development') {
-    app.use(cors({
-        origin: process.env.client_URL
-    }))
-
-    app.use(morgan('dev'));
-}
-
-app.use((req,res,next) => {
-    res.status(404).json({
-        success: false,
-        message: "Page Not Found"
-    })
-})
-
 const authRouter = require('./routes/auth.route');
 
+if (process.env.NODE_ENV === 'development') {
+    app.use(cors({
+        origin: process.env.CLIENT_URL
+    }))
+    app.use(morgan('dev'))
+}
 
-app.use('/api/', authRouter);
+// Use Routes
+app.use('/api', authRouter)
+
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        msg: "Page not Found"
+    })
+})
 
 
 const PORT = process.env.PORT

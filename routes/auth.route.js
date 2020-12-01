@@ -6,6 +6,6 @@ const {activationController, registerController, loginController, forgetControll
 router.post('/register',validRegister,registerController);
 router.post('/login',validLogin,loginController);
 router.post('/activation',activationController);
-router.put('/password/forget',forgetPasswordValidator, forgetController)
+//router.put('/password/forget',forgetPasswordValidator, forgetController)
 
 module.exports = router

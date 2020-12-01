@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-const { timeStamp } = require('console');
-const { maxHeaderSize } = require('http');
 
 const userSchema = new mongoose.Schema({
+    
     email: {
         type: String,
         trim: true,
@@ -24,7 +23,7 @@ const userSchema = new mongoose.Schema({
     salt: String,
     role: {
         type: String,
-        default: 'Normal'
+        default: 'subscriber'
     },
     resetPasswordLink: {
         data: String,
