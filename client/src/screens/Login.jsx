@@ -70,7 +70,7 @@ const Login = ({history}) => {
                                     to='/users/password/forget'
                                     className='no-underline hover:underline text-indigo-500 text-md text-right absolute right-0  mt-2'
                                     >
-                                    Forget password?
+                                        Forget password?
                                     </Link>
 
                             </div>
