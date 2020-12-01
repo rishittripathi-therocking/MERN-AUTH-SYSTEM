@@ -7,6 +7,8 @@ import { ToastContainer } from 'react-toastify';
 import Activate from './screens/Activate';
 import Login from './screens/Login';
 import Forget from './screens/forget';
+import Private from './screens/Private.jsx';
+import Admin from './screens/Admin.jsx';
 import ResetPassword from './screens/ResetPassword';
 
 
@@ -21,6 +23,9 @@ function App() {
         <Route path='/users/password/forget' exact render={props => <Forget {...props} />} />
         <Route path='/users/activate/:token' exact render={props => <Activate {...props} />} />
         <Route path='/users/password/reset/:token' exact render={props => <ResetPassword {...props} />} />
+        <PrivateRoute path="/private" exact component={Private} />
+        <AdminRoute path="/admin" exact component={Admin} />
+        <Redirect to='/' />
       </Switch>
     </BrowserRouter>
   );
