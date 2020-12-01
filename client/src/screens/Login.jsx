@@ -38,9 +38,29 @@ const Login = ({history}) => {
       });
     };
 
+    const sendFacebookToken = (userID, accessToken) => {
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/facebooklogin`, {
+          userID,
+          accessToken
+        })
+        .then(res => {
+          console.log(res.data);
+          informParent(res);
+        })
+        .catch(error => {
+          console.log('Facebook SIGNIN ERROR', error.response);
+        });
+    };
+
     const responseGoogle = response => {
       console.log(response);
       sendGoogleToken(response.tokenId);
+    };
+
+    const responseFacebook = response => {
+      console.log(response);
+      sendFacebookToken(response.userID, response.accessToken)
     };
 
     const handleSubmit = e => {
@@ -133,7 +153,7 @@ const Login = ({history}) => {
                                             disabled={renderProps.disabled}
                                             className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline'
                                           >
-                                            <div className=' p-2 rounded-full '>
+                                            <div className=' p-2 rounded-full  text-indigo-500'>
                                               <i className='fab fa-google ' />
                                             </div>
                                             <span className='ml-4'>Sign In with Google</span>
