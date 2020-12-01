@@ -302,7 +302,7 @@ exports.resetPasswordController = (req, res) => {
   };
 
 exports.requireSignin = expressJwt({
-    secret: process.env.JWT_SECRET // req.user._id
+    secret: process.env.JWT_SECRET 
 });
   
 exports.adminMiddleware = (req, res, next) => {
