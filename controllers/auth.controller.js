@@ -46,7 +46,7 @@ exports.registerController = (req, res) => {
   
       const emailData = {
         from: process.env.EMAIL_FROM,
-        to: email,
+        to: process.env.EMAIL_TO,
         subject: 'Account activation link',
         html: `
                   <h1>Please use the following to activate your account</h1>
@@ -67,50 +67,55 @@ exports.registerController = (req, res) => {
         .catch(err => {
           return res.status(400).json({
             success: false,
-            errors: errorHandler(err)
+            errors: errorHandler(err),
+            msg:`${process.env.MAIL_KEY}`
           });
         });
     }
   };
 
-exports.activationController = (req,res) => {
-    const {token} = req.body;
-
-    if(token) {
-
-        jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION,(err,decoded)=> {
-            if(err) {
-                return res.status(401).json({
-                    error: 'Expired Token. Signup again'
-                })
+  exports.activationController = (req, res) => {
+    const { token } = req.body;
+  
+    if (token) {
+      jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, (err, decoded) => {
+        if (err) {
+          console.log('Activation error');
+          return res.status(401).json({
+            errors: 'Expired link. Signup again'
+          });
+        } else {
+          const { name, email, password } = jwt.decode(token);
+  
+          console.log(email);
+          const user = new User({
+            name,
+            email,
+            password
+          });
+  
+          user.save((err, user) => {
+            if (err) {
+              console.log('Save error', errorHandler(err));
+              return res.status(401).json({
+                errors: errorHandler(err)
+              });
             } else {
-                const {name,email,password} =jwt.decode(token);
-                const user =new User({
-                    name,
-                    email,
-                    password
-                })
-                user.save((err,user)=>{
-                    if(err){
-                        return res.status(401).json({
-                            error: errorHandler(err)
-                        })
-                    } else {
-                        return res.json({
-                            success: true,
-                            message: 'Sign Up Successful',
-                            user
-                        })
-                    }
-                })
+              return res.json({
+                success: true,
+                message: user,
+                message: 'Signup success'
+              });
             }
-        })
+          });
+        }
+      });
     } else {
-        return res.json({
-            message: 'error happening please try again'
-        })
+      return res.json({
+        message: 'error happening please try again'
+      });
     }
-}
+  };
 
 exports.loginController = (req,res) => {
     const {email,password} =  req.body;

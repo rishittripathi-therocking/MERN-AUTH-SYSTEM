@@ -17,7 +17,6 @@ const Register = () => {
 
     const {name, email, password1, password2} = formData;
     const handleChange = text => e =>  {
-        console.log(name,email, password1, password2);
         setFormData({...formData, [text]: e.target.value})
     }
 

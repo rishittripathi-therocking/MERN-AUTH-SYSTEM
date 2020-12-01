@@ -2,19 +2,18 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
-    
+    name: {
+        type: String,
+        trim: true,
+        required: true,
+
+    },
     email: {
         type: String,
         trim: true,
         required: true,
         unique: true,
         lowercase: true
-    },
-    name: {
-        type: String,
-        trim: true,
-        required: true,
-
     },
     hashed_password: {
         type: String, 
@@ -23,7 +22,7 @@ const userSchema = new mongoose.Schema({
     salt: String,
     role: {
         type: String,
-        default: 'subscriber'
+        default: 'Normal'
     },
     resetPasswordLink: {
         data: String,
@@ -32,33 +31,37 @@ const userSchema = new mongoose.Schema({
 },{timestamps: true})
 
 
-userSchema.virtual('password')
-    .set(function() {
-        this.password = password;
+userSchema
+    .virtual('password')
+    .set(function(password) {
+        this._password = password;
         this.salt = this.makeSalt();
-        this.hashed_password = this.encryptPassword(this.password);
+        this.hashed_password = this.encryptPassword(password);
     })
     .get(function() {
-        return this ._password
-    })
+        return this._password;
+    });
 
 userSchema.methods = {
-    makeSalt: function() {
-        return Math.round(new Date().valueOf()*Math.random()) +''
-    },
-    encryptPassword: function(password) {
-        if(!password) return ''
+    authenticate: function(plainText) {
+        return this.encryptPassword(plainText) === this.hashed_password;
+      },
+    
+      encryptPassword: function(password) {
+        if (!password) return '';
         try {
-            return crypto.createHmac('sha1',thi.salt)
-                    .update(password)
-                    .digest('hex');
-        } catch(err) {
-            return ''
+          return crypto
+            .createHmac('sha1', this.salt)
+            .update(password)
+            .digest('hex');
+        } catch (err) {
+          return '';
         }
-    },
-    authenticate: function(plainPassword) {
-        return this.encryptPassword(plainPassword) === this.hashed_password;
-    }
+      },
+    
+      makeSalt: function() {
+        return Math.round(new Date().valueOf() * Math.random()) + '';
+      }
 }
 
 module.exports = mongoose.model('User',userSchema);
