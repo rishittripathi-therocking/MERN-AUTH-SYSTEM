@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import {Link, Redirect} from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 const Login = ({history}) => {
     const [formData,setFormData] = useState({
@@ -160,6 +161,22 @@ const Login = ({history}) => {
                                           </button>
                                         )}
                                       ></GoogleLogin>
+                              <FacebookLogin
+                                      appId={`${process.env.REACT_APP_FACEBOOK_CLIENT}`}
+                                      autoLoad={false}
+                                      callback={responseFacebook}
+                                      render={renderProps => (
+                                        <button
+                                          onClick={renderProps.onClick}
+                                          className='mt-3 w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5'
+                                        >
+                                          <div className=' p-2 rounded-full '>
+                                            <i className='fab fa-facebook text-indigo-500' />
+                                          </div>
+                                          <span className='ml-4'>Sign In with Facebook</span>
+                                        </button>
+                                      )}
+                                    />
                               <a
                                       className='mt-3 w-full max-w-xs font-bold shadow-sm rounded-lg py-3
                                                 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5'
