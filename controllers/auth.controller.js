@@ -200,7 +200,7 @@ exports.forgotPasswordController = (req, res) => {
   
           const emailData = {
             from: process.env.EMAIL_FROM,
-            to: email,
+            to: process.env.EMAIL_TO,
             subject: `Password Reset link`,
             html: `
                       <h1>Please use the following link to reset your password</h1>
@@ -223,16 +223,14 @@ exports.forgotPasswordController = (req, res) => {
                     'Database connection error on user password forgot request'
                 });
               } else {
-                sgMail
+                sgmail
                   .send(emailData)
                   .then(sent => {
-                    // console.log('SIGNUP EMAIL SENT', sent)
                     return res.json({
                       message: `Email has been sent to ${email}. Follow the instruction to activate your account`
                     });
                   })
                   .catch(err => {
-                    // console.log('SIGNUP EMAIL SENT ERROR', err)
                     return res.json({
                       message: err.message
                     });
